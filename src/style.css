@@ -94,3 +94,9 @@ p {
   font-size: 32px;
   text-align: center;
 }
+.open-source {
+  font-size: 11px;
+}
+.source-link {
+  text-decoration: none;
+}
