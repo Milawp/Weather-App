@@ -7,6 +7,8 @@
   border-radius: 15px;
   display: block;
   padding-bottom: 10px;
+  border: 1px solid #416d44;
+  max-width: 900px;
 }
 .search-bar {
   padding-top: 10px;
