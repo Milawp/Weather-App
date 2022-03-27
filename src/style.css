@@ -62,7 +62,6 @@ ul {
 #celcius-link:hover {
   color: #0d6efd;
   cursor: pointer;
-  text-decoration: underline;
 }
 .card {
   border: 2px solid #fff;

@@ -47,7 +47,6 @@ function weatherDisplay(response) {
   document.querySelector("#tempValue").innerHTML = Math.round(
     response.data.main.temp
   );
-  console.log("response.data");
 }
 
 function showTemp(position) {
