@@ -58,14 +58,19 @@ ul {
 }
 #fahrenheit-link,
 #celcius-link {
-  color: #57837b;
   text-decoration: none;
 }
-#fahrenheit-link:hover,
-#celcius-link:hover {
-  color: #0d6efd;
-  cursor: pointer;
+
+.active {
+  color: #57837b;
+  text-decoration: none;
+  cursor: default;
 }
+.active:hover {
+  text-decoration: none;
+  color: #57837b;
+}
+
 .sunRiseSet {
   font-size: small;
   text-align: right;

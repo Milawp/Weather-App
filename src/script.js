@@ -69,12 +69,24 @@ function updateDate(timestamp) {
 
   return `${day}, ${month} ${date} @ ${hours}:${minutes}`;
 }
+function updateSunStatus(timestamp) {
+  let now = new Date();
+  let date = now.getDate();
+  let hours = now.getHours();
+  let minutes = now.getMinutes();
+  return `${hours}:${minutes}`;
+  if (minutes < 10) {
+    minutes = `0${minutes}`;
+  }
+}
 //tempurature, city and search functions
 
 function weatherDisplay(response) {
+  console.log(response.data);
   document.querySelector("h1").innerHTML = response.data.name;
-  //document.querySelector("#sunrise").innerHTML = response.data.sys.sunrise;
-  //document.querySelector("#sunset").innerHTML = response.data.sys.sunset;
+
+  celsiustemp = Math.round(response.data.main.temp);
+
   document.querySelector("#humidity").innerHTML = response.data.main.humidity;
   document.querySelector("#windSpeed").innerHTML = Math.round(
     response.data.wind.speed
@@ -87,6 +99,12 @@ function weatherDisplay(response) {
   document.querySelector("#currentDate").innerHTML = updateDate(
     response.data.dt * 1000
   );
+  document.querySelector("#sunrise").innerHTML = updateSunStatus(
+    response.data.sys.sunrise * 1000
+  );
+  document.querySelector("#sunset").innerHTML = updateSunStatus(
+    response.data.sys.sunset * 1000
+  );
   document
     .querySelector("#mainWeatherIcon")
     .setAttribute(
@@ -94,7 +112,7 @@ function weatherDisplay(response) {
       `http://openweathermap.org/img/wn/${response.data.weather[0].icon}@2x.png`
     );
   document
-    .querySelector("#MainWeatherIcon")
+    .querySelector("#mainWeatherIcon")
     .setAttribute("alt", response.data.weather[0].description);
 }
 
@@ -140,5 +158,30 @@ getCurrent.addEventListener("click", getLocation);
 
 let form = document.querySelector("#search-button");
 form.addEventListener("click", handleSubmit);
+
+function showFarhrenheitTemp(event) {
+  event.preventDefault();
+  let ftempElement = document.querySelector("#tempValue");
+  let fahrenheitTemp = (celsiustemp * 9) / 5 + 32;
+  ftempElement.innerHTML = Math.round(fahrenheitTemp);
+  ctemp.classList.remove("active");
+  ftemp.classList.add("active");
+}
+
+function showCelsiusTemp(event) {
+  event.preventDefault();
+  let ctempElement = document.querySelector("#tempValue");
+  ctempElement.innerHTML = Math.round(celsiustemp);
+  ftemp.classList.remove("active");
+  ctemp.classList.add("active");
+}
+
+let celsiustemp = null;
+
+let ftemp = document.querySelector("#fahrenheit-link");
+ftemp.addEventListener("click", showFarhrenheitTemp);
+
+let ctemp = document.querySelector("#celcius-link");
+ctemp.addEventListener("click", showCelsiusTemp);
 
 search("Madrid");

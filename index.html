@@ -20,7 +20,7 @@
       <form id="search-form">
       <div class="row search-bar"> 
         <div class="col-4">
-         <input class="form-control" type="text" placeholder="Enter a city" aria-label="default input example" id="city">
+         <input class="form-control" type="text" placeholder="Enter a city" aria-label="default input example" id="city" autocomplete="off">
         </div>
         <div class="col-2">
           <button id="search-button">🔍 Search</button> 
@@ -44,7 +44,7 @@
       <h2>
         <span class="temp" id="tempValue"></span>  
         <span class="units">
-          <a href="#" id="celcius-link" > °C </a> |
+          <a href="#" id="celcius-link"class="active" > °C </a> |
           <a href="#" id="fahrenheit-link"> °F </a> 
          </span> 
        </h2>
@@ -55,13 +55,14 @@
       <div class="col-3 sunRiseSet">
 <ul>
   <li>
-    <span id="sunrise">
-          ☀ SUNRISE: 8:31 
+   ☀ SUNRISE: <span id="sunrise">
+           8:31 
       </span>
     </li>
     <li>
+      🌙 SUNSET:
  <span id="sunset">
-         🌙 SUNSET: 17:31
+ 17:31
  </span>
     </li>
 </ul>
