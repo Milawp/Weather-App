@@ -29,12 +29,6 @@
           <button id="location-button">📍 Current</button> 
         </div>
         </form>
-        <div class="col-2" id="sunrise">
-          ☀ SUNRISE: 8:31 
-        </div>
-        <div class="col-2" id="sunset">
-         🌙 SUNSET: 17:31
-        </div>
       </div>
       <p1>Last Updated: <span id="currentDate"></span></p1>
      <div class="row main">
@@ -45,7 +39,7 @@
       <li> <span id="conditions"> </span></li>
          </ul>
       </div>
-      <div class="col-4" id="temperature">
+      <div class="col-3" id="temperature">
  <h1></h1>
       <h2>
         <span class="temp" id="tempValue"></span>  
@@ -55,9 +49,23 @@
          </span> 
        </h2>
       </div>
-      <div class="col-4 Cloudy-cloud">
-       <i class="fa-solid fa-cloud-rain"></i>
+      <div class="col-2 weatherIcon">
+       <img src="http://openweathermap.org/img/wn/10d@2x.png" alt="clear skies" id="mainWeatherIcon">
       </div>
+      <div class="col-3 sunRiseSet">
+<ul>
+  <li>
+    <span id="sunrise">
+          ☀ SUNRISE: 8:31 
+      </span>
+    </li>
+    <li>
+ <span id="sunset">
+         🌙 SUNSET: 17:31
+ </span>
+    </li>
+</ul>
+     </div> 
       </div>
 
 <div class="row weekdays">
