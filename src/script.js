@@ -30,8 +30,45 @@ let minutes = now.getMinutes();
 if (minutes < 10) {
   minutes = `0${minutes}`;
 }
-let currentDate = document.querySelector("#currentDate");
-currentDate.innerHTML = `Last updated: ${day}, ${month} ${date} @ ${hours}:${minutes}`;
+document.querySelector(
+  "#currentDate"
+).innerHTML = `${day}, ${month} ${date} @ ${hours}:${minutes}`;
+
+function updateDate(timestamp) {
+  let now = new Date();
+  let date = now.getDate();
+  let months = [
+    "January",
+    "February",
+    "March",
+    "April",
+    "May",
+    "June",
+    "July",
+    "August",
+    "October",
+    "November",
+    "December",
+  ];
+  let month = months[now.getMonth()];
+  let days = [
+    "Sunday",
+    "Monday",
+    "Tuesday",
+    "Wednesday",
+    "Thursday",
+    "Friday",
+    "Saturday",
+  ];
+  let day = days[now.getDay()];
+  let hours = now.getHours();
+  let minutes = now.getMinutes();
+  if (minutes < 10) {
+    minutes = `0${minutes}`;
+  }
+
+  return `${day}, ${month} ${date} @ ${hours}:${minutes}`;
+}
 //tempurature, city and search functions
 
 function weatherDisplay(response) {
@@ -46,6 +83,9 @@ function weatherDisplay(response) {
     response.data.weather[0].description;
   document.querySelector("#tempValue").innerHTML = Math.round(
     response.data.main.temp
+  );
+  document.querySelector("#currentDate").innerHTML = updateDate(
+    response.data.dt * 1000
   );
 }
 
