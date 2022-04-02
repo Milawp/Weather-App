@@ -70,19 +70,13 @@ function updateDate(timestamp) {
   return `${day}, ${month} ${date} @ ${hours}:${minutes}`;
 }
 function updateSunStatus(timestamp) {
-  let now = new Date();
-  let date = now.getDate();
-  let hours = now.getHours();
-  let minutes = now.getMinutes();
   return `${hours}:${minutes}`;
   if (minutes < 10) {
     minutes = `0${minutes}`;
   }
 }
-//tempurature, city and search functions
 
 function weatherDisplay(response) {
-  console.log(response.data);
   document.querySelector("h1").innerHTML = response.data.name;
 
   celsiustemp = Math.round(response.data.main.temp);
@@ -100,11 +94,12 @@ function weatherDisplay(response) {
     response.data.dt * 1000
   );
   document.querySelector("#sunrise").innerHTML = updateSunStatus(
-    response.data.sys.sunrise * 1000
+    response.data.sys.sunrise
   );
   document.querySelector("#sunset").innerHTML = updateSunStatus(
-    response.data.sys.sunset * 1000
+    response.data.sys.sunset
   );
+  console.log(response.data.sys.sunset);
   document
     .querySelector("#mainWeatherIcon")
     .setAttribute(

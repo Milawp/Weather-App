@@ -65,6 +65,8 @@ ul {
   color: #57837b;
   text-decoration: none;
   cursor: default;
+  font-size: 15px;
+  font-weight: bold;
 }
 .active:hover {
   text-decoration: none;
