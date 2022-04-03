@@ -1,7 +1,7 @@
 .container {
   font-family: "Franklin Gothic Medium", "Arial Narrow", Arial, sans-serif;
   color: #416d65;
-  background: linear-gradient(#f2f1e6, #eae7c6);
+  background: linear-gradient(#f7f3e9, #94d0cc, #de8971);
   margin: 0 auto;
   margin-top: 30px;
   border-radius: 15px;
@@ -73,12 +73,8 @@ ul {
   color: #57837b;
 }
 
-.sunRiseSet {
-  font-size: small;
-  text-align: right;
-}
 .card {
-  border: 2px solid #fff;
+  border: 2px solid #416d65;
   border-radius: 10px;
   background-color: rgba(10, 85, 85, 0.03);
 }

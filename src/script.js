@@ -69,12 +69,12 @@ function updateDate(timestamp) {
 
   return `${day}, ${month} ${date} @ ${hours}:${minutes}`;
 }
-function updateSunStatus(timestamp) {
-  return `${hours}:${minutes}`;
-  if (minutes < 10) {
-    minutes = `0${minutes}`;
-  }
-}
+//function updateSunStatus(timestamp) {
+//return `${hours}:${minutes}`;
+//if (minutes < 10) {
+// minutes = `0${minutes}`;
+//}
+//}
 function getForcast(coordinates) {
   console.log(coordinates);
   let apiKey = "a6d203f193cb23874b319e04444ceed0";
@@ -84,7 +84,6 @@ function getForcast(coordinates) {
 
 function weatherDisplay(response) {
   document.querySelector("h1").innerHTML = response.data.name;
-
   celsiustemp = Math.round(response.data.main.temp);
 
   document.querySelector("#humidity").innerHTML = response.data.main.humidity;
@@ -99,12 +98,12 @@ function weatherDisplay(response) {
   document.querySelector("#currentDate").innerHTML = updateDate(
     response.data.dt * 1000
   );
-  document.querySelector("#sunrise").innerHTML = updateSunStatus(
-    response.data.sys.sunrise
-  );
-  document.querySelector("#sunset").innerHTML = updateSunStatus(
-    response.data.sys.sunset
-  );
+  // document.querySelector("#sunrise").innerHTML = updateSunStatus(
+  //  response.data.sys.sunrise
+  // );
+  // document.querySelector("#sunset").innerHTML = updateSunStatus(
+  //  response.data.sys.sunset
+  // );
   document
     .querySelector("#mainWeatherIcon")
     .setAttribute(
@@ -115,6 +114,7 @@ function weatherDisplay(response) {
     .querySelector("#mainWeatherIcon")
     .setAttribute("alt", response.data.weather[0].description);
   getForcast(response.data.coord);
+  console.log(response.data);
 }
 
 function showTemp(position) {
