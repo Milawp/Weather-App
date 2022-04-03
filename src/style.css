@@ -91,8 +91,15 @@ h4 {
 .card-body {
   padding: 8px 16px 16px 16px;
 }
-.card-text {
+.forcast-tempurature {
   color: #515e63;
+}
+.forcast-max-temp {
+  font-size: 18px;
+}
+.forcast-min-temp {
+  font-size: 16px;
+  opacity: 0.6;
 }
 footer {
   margin: 15px;
