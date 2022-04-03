@@ -171,6 +171,30 @@ function showCelsiusTemp(event) {
   ctemp.classList.add("active");
 }
 
+function displayForcast() {
+  let forcastElement = document.querySelector("#forcast");
+  let forcastHTML = `<div class="row">`;
+  let days = ["Thu", "Fri", "Sat", "Sun", "Mon", "Tue"];
+  days.forEach(function (day) {
+    forcastHTML =
+      forcastHTML +
+      ` <div class="col-2">
+    <div class="card">
+      <div class="card-body">
+        <h5 class="card-title">${day}</h5>
+         <img src="http://openweathermap.org/img/wn/10d@2x.png" alt="clear skies" class="forcast-icon" id="forcast-weatherIcon">
+        <p class="forcast-tempurature">
+          <span class="forcast-max-temp" >43°</span>
+        <span class="forcast-min-temp">35°</span>
+        </p>
+      </div>
+    </div>
+  </div>`;
+  });
+  forcastHTML = forcastHTML + `</div>`;
+  forcastElement.innerHTML = forcastHTML;
+}
+
 let celsiustemp = null;
 
 let ftemp = document.querySelector("#fahrenheit-link");
@@ -180,3 +204,4 @@ let ctemp = document.querySelector("#celcius-link");
 ctemp.addEventListener("click", showCelsiusTemp);
 
 search("Madrid");
+displayForcast();
