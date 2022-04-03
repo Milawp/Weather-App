@@ -193,7 +193,7 @@ function displayForcast(response) {
     if (index < 6) {
       forcastHTML =
         forcastHTML +
-        ` <div class="col-3 col-md-2">
+        ` <div class="col-4 col-md-2">
     <div class="card">
       <div class="card-body">
         <h5 class="card-title">${formatDay(forcastDay.dt)}</h5>
