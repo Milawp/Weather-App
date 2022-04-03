@@ -75,6 +75,12 @@ function updateSunStatus(timestamp) {
     minutes = `0${minutes}`;
   }
 }
+function getForcast(coordinates) {
+  console.log(coordinates);
+  let apiKey = "a6d203f193cb23874b319e04444ceed0";
+  let apiUrl = `https://api.openweathermap.org/data/2.5/onecall?lat=${coordinates.lat}&lon=${coordinates.lon}&appid=${apiKey}&units=metric`;
+  axios.get(apiUrl).then(displayForcast);
+}
 
 function weatherDisplay(response) {
   document.querySelector("h1").innerHTML = response.data.name;
@@ -99,7 +105,6 @@ function weatherDisplay(response) {
   document.querySelector("#sunset").innerHTML = updateSunStatus(
     response.data.sys.sunset
   );
-  console.log(response.data.sys.sunset);
   document
     .querySelector("#mainWeatherIcon")
     .setAttribute(
@@ -109,12 +114,12 @@ function weatherDisplay(response) {
   document
     .querySelector("#mainWeatherIcon")
     .setAttribute("alt", response.data.weather[0].description);
+  getForcast(response.data.coord);
 }
 
 function showTemp(position) {
   let temp = Math.round(position.data.main.temp);
   let cityApi = position.data.name;
-  console.log(temp);
   let apiKey = "a6d203f193cb23874b319e04444ceed0";
   let apiUrl = `https://api.openweathermap.org/data/2.5/weather?q=${cityApi}&appid=${apiKey}&units=metric`;
   let tempValue = document.querySelector("#tempValue");
@@ -141,6 +146,7 @@ function showPosition(position) {
   let apiKey = "a6d203f193cb23874b319e04444ceed0";
   let apiUrl = `https://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${long}&appid=${apiKey}&units=${units}`;
   axios.get(apiUrl).then(showTemp);
+  console.log(position);
 }
 
 function getLocation(event) {
@@ -171,25 +177,41 @@ function showCelsiusTemp(event) {
   ctemp.classList.add("active");
 }
 
-function displayForcast() {
+function formatDay(timestamp) {
+  let date = new Date(timestamp * 1000);
+  let day = date.getDay();
+  let days = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"];
+  return days[day];
+}
+
+function displayForcast(response) {
+  let forcast = response.data.daily;
   let forcastElement = document.querySelector("#forcast");
   let forcastHTML = `<div class="row">`;
   let days = ["Thu", "Fri", "Sat", "Sun", "Mon", "Tue"];
-  days.forEach(function (day) {
-    forcastHTML =
-      forcastHTML +
-      ` <div class="col-2">
+  forcast.forEach(function (forcastDay, index) {
+    if (index < 6) {
+      forcastHTML =
+        forcastHTML +
+        ` <div class="col-3 col-md-2">
     <div class="card">
       <div class="card-body">
-        <h5 class="card-title">${day}</h5>
-         <img src="http://openweathermap.org/img/wn/10d@2x.png" alt="clear skies" class="forcast-icon" id="forcast-weatherIcon">
+        <h5 class="card-title">${formatDay(forcastDay.dt)}</h5>
+         <img src="http://openweathermap.org/img/wn/${
+           forcastDay.weather[0].icon
+         }@2x.png" alt="clear skies" class="forcast-icon" id="forcast-weatherIcon">
         <p class="forcast-tempurature">
-          <span class="forcast-max-temp" >43°</span>
-        <span class="forcast-min-temp">35°</span>
+          <span class="forcast-max-temp" >${Math.round(
+            forcastDay.temp.max
+          )}°</span>
+        <span class="forcast-min-temp">${Math.round(
+          forcastDay.temp.min
+        )}°</span>
         </p>
       </div>
     </div>
   </div>`;
+    }
   });
   forcastHTML = forcastHTML + `</div>`;
   forcastElement.innerHTML = forcastHTML;
@@ -204,4 +226,3 @@ let ctemp = document.querySelector("#celcius-link");
 ctemp.addEventListener("click", showCelsiusTemp);
 
 search("Madrid");
-displayForcast();
