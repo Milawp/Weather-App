@@ -33,6 +33,7 @@ if (minutes < 10) {
 document.querySelector(
   "#currentDate"
 ).innerHTML = `${day}, ${month} ${date} @ ${hours}:${minutes}`;
+//functions
 
 function updateDate(timestamp) {
   let now = new Date();
@@ -154,12 +155,6 @@ function getLocation(event) {
   navigator.geolocation.getCurrentPosition(showPosition);
 }
 
-let getCurrent = document.querySelector("#location-button");
-getCurrent.addEventListener("click", getLocation);
-
-let form = document.querySelector("#search-button");
-form.addEventListener("click", handleSubmit);
-
 function showFarhrenheitTemp(event) {
   event.preventDefault();
   let ftempElement = document.querySelector("#tempValue");
@@ -167,6 +162,24 @@ function showFarhrenheitTemp(event) {
   ftempElement.innerHTML = Math.round(fahrenheitTemp);
   ctemp.classList.remove("active");
   ftemp.classList.add("active");
+}
+
+function convertForcast(unitType) {
+  forcast.forEach(function (forcastDay, index) {
+    if (index < 6) {
+      let tempMin = Math.round(forcastDay.temp.min);
+      let tempMax = Math.round(forcastDay.temp.max);
+      let min = document.querySelector("#minTemp");
+      let max = document.querySelector("#maxTemp");
+      if (unitType === "metric") {
+        min.innerHTML = tempMin;
+        max.innerHTML = tempMax;
+      } else {
+        min.innerHTML = Math.round((tempMin * 9) / 5 + 32);
+        max.innerHTML = Math.round((tempMax * 9) / 5 + 32);
+      }
+    }
+  });
 }
 
 function showCelsiusTemp(event) {
@@ -215,7 +228,16 @@ function displayForcast(response) {
   });
   forcastHTML = forcastHTML + `</div>`;
   forcastElement.innerHTML = forcastHTML;
+
+  if (ftemp.className === "active") {
+    convertForcast("imperial");
+  }
 }
+let getCurrent = document.querySelector("#location-button");
+getCurrent.addEventListener("click", getLocation);
+
+let form = document.querySelector("#search-button");
+form.addEventListener("click", handleSubmit);
 
 let celsiustemp = null;
 
