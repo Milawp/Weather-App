@@ -54,28 +54,12 @@ ul {
   font-size: 117%;
   list-style: none;
   padding-left: 0%;
-  max-width: 80%;
+  max-width: 75%;
 }
 .units {
   font-size: 13px;
   position: relative;
   top: -10px;
-}
-#fahrenheit-link,
-#celcius-link {
-  text-decoration: none;
-}
-
-.active {
-  color: #57837b;
-  text-decoration: none;
-  cursor: default;
-  font-size: 15px;
-  font-weight: bold;
-}
-.active:hover {
-  text-decoration: none;
-  color: #57837b;
 }
 
 .card {

@@ -79,7 +79,7 @@ function updateDate(timestamp) {
 function getForcast(coordinates) {
   console.log(coordinates);
   let apiKey = "a6d203f193cb23874b319e04444ceed0";
-  let apiUrl = `https://api.openweathermap.org/data/2.5/onecall?lat=${coordinates.lat}&lon=${coordinates.lon}&appid=${apiKey}&units=metric`;
+  let apiUrl = `https://api.openweathermap.org/data/2.5/onecall?lat=${coordinates.lat}&lon=${coordinates.lon}&appid=${apiKey}&units=${units}`;
   axios.get(apiUrl).then(displayForcast);
 }
 
@@ -115,14 +115,13 @@ function weatherDisplay(response) {
     .querySelector("#mainWeatherIcon")
     .setAttribute("alt", response.data.weather[0].description);
   getForcast(response.data.coord);
-  console.log(response.data);
 }
 
 function showTemp(position) {
   let temp = Math.round(position.data.main.temp);
   let cityApi = position.data.name;
   let apiKey = "a6d203f193cb23874b319e04444ceed0";
-  let apiUrl = `https://api.openweathermap.org/data/2.5/weather?q=${cityApi}&appid=${apiKey}&units=metric`;
+  let apiUrl = `https://api.openweathermap.org/data/2.5/weather?q=${cityApi}&appid=${apiKey}&units=${units}`;
   let tempValue = document.querySelector("#tempValue");
   tempValue.innerHTML = `${temp}`;
   axios.get(apiUrl).then(weatherDisplay);
@@ -130,7 +129,7 @@ function showTemp(position) {
 
 function search(city) {
   let apiKey = "a6d203f193cb23874b319e04444ceed0";
-  let apiUrl = `https://api.openweathermap.org/data/2.5/weather?q=${city}&appid=${apiKey}&units=metric`;
+  let apiUrl = `https://api.openweathermap.org/data/2.5/weather?q=${city}&appid=${apiKey}&units=${units}`;
   axios.get(apiUrl).then(weatherDisplay);
 }
 
@@ -143,7 +142,7 @@ function handleSubmit(event) {
 function showPosition(position) {
   let lat = position.coords.latitude;
   let long = position.coords.longitude;
-  let units = "metric";
+  let units = "imperial";
   let apiKey = "a6d203f193cb23874b319e04444ceed0";
   let apiUrl = `https://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${long}&appid=${apiKey}&units=${units}`;
   axios.get(apiUrl).then(showTemp);
@@ -153,41 +152,6 @@ function showPosition(position) {
 function getLocation(event) {
   event.preventDefault();
   navigator.geolocation.getCurrentPosition(showPosition);
-}
-
-function showFarhrenheitTemp(event) {
-  event.preventDefault();
-  let ftempElement = document.querySelector("#tempValue");
-  let fahrenheitTemp = (celsiustemp * 9) / 5 + 32;
-  ftempElement.innerHTML = Math.round(fahrenheitTemp);
-  ctemp.classList.remove("active");
-  ftemp.classList.add("active");
-}
-
-function convertForcast(unitType) {
-  forcast.forEach(function (forcastDay, index) {
-    if (index < 6) {
-      let tempMin = Math.round(forcastDay.temp.min);
-      let tempMax = Math.round(forcastDay.temp.max);
-      let min = document.querySelector("#minTemp");
-      let max = document.querySelector("#maxTemp");
-      if (unitType === "metric") {
-        min.innerHTML = tempMin;
-        max.innerHTML = tempMax;
-      } else {
-        min.innerHTML = Math.round((tempMin * 9) / 5 + 32);
-        max.innerHTML = Math.round((tempMax * 9) / 5 + 32);
-      }
-    }
-  });
-}
-
-function showCelsiusTemp(event) {
-  event.preventDefault();
-  let ctempElement = document.querySelector("#tempValue");
-  ctempElement.innerHTML = Math.round(celsiustemp);
-  ftemp.classList.remove("active");
-  ctemp.classList.add("active");
 }
 
 function formatDay(timestamp) {
@@ -228,23 +192,22 @@ function displayForcast(response) {
   });
   forcastHTML = forcastHTML + `</div>`;
   forcastElement.innerHTML = forcastHTML;
-
-  if (ftemp.className === "active") {
-    convertForcast("imperial");
-  }
 }
+
 let getCurrent = document.querySelector("#location-button");
 getCurrent.addEventListener("click", getLocation);
 
 let form = document.querySelector("#search-button");
 form.addEventListener("click", handleSubmit);
 
-let celsiustemp = null;
+//let celsiustemp = null;
+let units = "imperial";
 
-let ftemp = document.querySelector("#fahrenheit-link");
-ftemp.addEventListener("click", showFarhrenheitTemp);
+//let ftemp = document.querySelector("#fahrenheit-link");
 
-let ctemp = document.querySelector("#celcius-link");
-ctemp.addEventListener("click", showCelsiusTemp);
+//ftemp.addEventListener("click", showFarhrenheitTemp);
+
+//let ctemp = document.querySelector("#celcius-link");
+//ctemp.addEventListener("click", showCelsiusTemp);
 
 search("Madrid");
