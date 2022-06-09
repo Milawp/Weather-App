@@ -207,7 +207,7 @@ let units = "imperial";
 
 //ftemp.addEventListener("click", showFarhrenheitTemp);
 
-//let ctemp = document.querySelector("#celcius-link");
-//ctemp.addEventListener("click", showCelsiusTemp);
+let ctemp = document.querySelector("#celcius-link");
+ctemp.addEventListener("click", showCelsiusTemp);
 
 search("Madrid");
